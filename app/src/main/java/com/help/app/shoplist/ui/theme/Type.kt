@@ -1,4 +1,4 @@
-package com.sholawat_akustik_edisi_ramadhan_terbaru_2021.shoplist.ui.theme
+package com.help.app.shoplist.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

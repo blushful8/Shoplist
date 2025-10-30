@@ -1,3 +1,6 @@
+import org.gradle.kotlin.dsl.kotlin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sholawat_akustik_edisi_ramadhan_terbaru_2021.shoplist"
+    namespace = "com.help.app.shoplist"
     compileSdk = 36
 
     defaultConfig {
@@ -27,12 +30,13 @@ android {
             )
         }
     }
+
+    kotlin{
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
     }
     buildFeatures {
         compose = true

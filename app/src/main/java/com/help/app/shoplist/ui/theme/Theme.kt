@@ -1,6 +1,5 @@
-package com.sholawat_akustik_edisi_ramadhan_terbaru_2021.shoplist.ui.theme
+package com.help.app.shoplist.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
