@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -17,10 +21,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.help.app.shoplist.R
+import com.help.app.shoplist.dialog.InputProductNameDialog
 import com.help.app.shoplist.model.ShopItemInfo
 import com.help.app.shoplist.shop.ShopAddButton
 import com.help.app.shoplist.shop.ShopItem
-import com.help.app.shoplist.ui.theme.AddShopButtonColor
 
 @Composable
 fun ShopScreen(
@@ -28,6 +32,8 @@ fun ShopScreen(
         ShopItemInfo()
     )
 ) {
+    var inputProductNameDialogIsShowing by rememberSaveable { mutableStateOf(false) }
+
     Box(modifier) {
         Image(
             modifier = Modifier.fillMaxSize(),
@@ -35,9 +41,21 @@ fun ShopScreen(
             contentDescription = "Background",
             contentScale = ContentScale.Crop
         )
-        Column(modifier = modifier
-            .fillMaxSize()
-            .padding(10.dp)) {
+
+        if (inputProductNameDialogIsShowing) {
+            InputProductNameDialog(
+                onDismissRequest = { inputProductNameDialogIsShowing = false },
+                onConfirmClick = { productName ->
+                    inputProductNameDialogIsShowing = false
+                },
+                onDismissClick = { inputProductNameDialogIsShowing = false })
+        }
+
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = 10.dp)
+        ) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -49,7 +67,9 @@ fun ShopScreen(
                     ShopItem(shopItemInfo = shopItemInfo)
                 }
             }
-            ShopAddButton(modifier = Modifier.align(Alignment.End), onAddShopItem = {})
+            ShopAddButton(
+                modifier = Modifier.align(Alignment.End),
+                onAddShopItem = { inputProductNameDialogIsShowing = true })
         }
     }
 }
