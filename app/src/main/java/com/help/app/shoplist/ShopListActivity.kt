@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,6 +22,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -35,9 +37,10 @@ import com.help.app.shoplist.screen.ShopScreen
 import com.help.app.shoplist.ui.theme.BottomCardColor
 import com.help.app.shoplist.ui.theme.ShoplistTheme
 import com.help.app.shoplist.ui.theme.TopCardColor
+import com.help.app.shoplist.vm.ShopListViewModel
 
 class ShopListActivity : ComponentActivity() {
-
+    private val shopListViewModel: ShopListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +49,11 @@ class ShopListActivity : ComponentActivity() {
             ShoplistTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     ShopScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
+                        shopItemInfos = shopListViewModel.itemsNeedToShop.collectAsState().value,
+                        onAddNewProduct = { shopItemInfo ->
+                            shopListViewModel.addItem(shopItemInfo)
+                        }
                     )
                 }
             }
@@ -55,12 +62,9 @@ class ShopListActivity : ComponentActivity() {
 }
 
 
-
-
-
 @Preview(showBackground = true)
 @Composable
-fun Preview() {
+private fun Preview() {
     ShoplistTheme {
         ShopScreen()
     }

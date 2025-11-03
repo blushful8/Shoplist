@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.help.app.shoplist.R
 import com.help.app.shoplist.dialog.InputProductNameDialog
+import com.help.app.shoplist.dialog.ProductCategoryChooserDialog
 import com.help.app.shoplist.model.ShopItemInfo
 import com.help.app.shoplist.shop.ShopAddButton
 import com.help.app.shoplist.shop.ShopItem
@@ -30,9 +31,12 @@ import com.help.app.shoplist.shop.ShopItem
 fun ShopScreen(
     modifier: Modifier = Modifier, shopItemInfos: List<ShopItemInfo> = listOf(
         ShopItemInfo()
-    )
+    ),
+    onAddNewProduct: (shopItemInfo: ShopItemInfo) -> Unit = {}
 ) {
     var inputProductNameDialogIsShowing by rememberSaveable { mutableStateOf(false) }
+    var productCategoryChooserDialogIsShowing by rememberSaveable { mutableStateOf(false) }
+    var nameOfProduct by rememberSaveable { mutableStateOf("") }
 
     Box(modifier) {
         Image(
@@ -46,9 +50,28 @@ fun ShopScreen(
             InputProductNameDialog(
                 onDismissRequest = { inputProductNameDialogIsShowing = false },
                 onConfirmClick = { productName ->
+                    nameOfProduct = productName
+                    productCategoryChooserDialogIsShowing = true
                     inputProductNameDialogIsShowing = false
                 },
                 onDismissClick = { inputProductNameDialogIsShowing = false })
+        }
+
+        if (productCategoryChooserDialogIsShowing) {
+            ProductCategoryChooserDialog(
+                categories = shopItemInfos.map { it.category },
+                onDismissRequest = { productCategoryChooserDialogIsShowing = false },
+                onConfirmClick = { nameOfCategory ->
+                    onAddNewProduct.invoke(
+                        ShopItemInfo(
+                            id = shopItemInfos.lastIndex,
+                            name = nameOfProduct,
+                            category = nameOfCategory
+                        )
+                    )
+                    productCategoryChooserDialogIsShowing = false
+                },
+                onDismissClick = { productCategoryChooserDialogIsShowing = false })
         }
 
         Column(
