@@ -1,12 +1,9 @@
 package com.help.app.shoplist.dialog
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
@@ -57,8 +54,8 @@ fun ProductCategoryChooserDialog(
                 if (categories.isNotEmpty()) {
                     GridRadioGroup(
                         modifier = Modifier.fillMaxWidth(),
-                        categories = categories.toSet(),
-                        onChangeCategory = { newCategory ->
+                        uniqueItems = categories.toSet(),
+                        onSelectItem = { newCategory ->
                             categoryName = newCategory
                         })
                     HorizontalDivider(thickness = 1.dp, modifier = Modifier.height(10.dp))

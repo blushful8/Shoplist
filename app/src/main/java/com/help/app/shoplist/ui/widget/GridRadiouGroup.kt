@@ -35,11 +35,11 @@ import com.help.app.shoplist.ui.CustomText
 @Composable
 fun GridRadioGroup(
     modifier: Modifier = Modifier,
-    categories: Set<String> = setOf("A", "B", "C", "D", "E", "F", "G", "H", "I"),
-    onChangeCategory: (categoryName: String) -> Unit = {}
+    uniqueItems: Set<String> = setOf("A", "B", "C", "D", "E", "F", "G", "H", "I"),
+    onSelectItem: (itemName: String) -> Unit = {}
 ) {
     var selectedOption by remember {
-        mutableStateOf(categories.first())
+        mutableStateOf(uniqueItems.first())
     }
     LazyVerticalGrid(
         modifier = modifier,
@@ -48,7 +48,7 @@ fun GridRadioGroup(
         horizontalArrangement = Arrangement.spacedBy(5.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
-        items(categories.toList()) { category ->
+        items(uniqueItems.toList()) { category ->
             var currentFontSize by remember(category) { mutableStateOf(16.sp) }
 
             Row(
@@ -57,7 +57,7 @@ fun GridRadioGroup(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }) {
                         selectedOption = category
-                        onChangeCategory.invoke(category)
+                        onSelectItem.invoke(category)
                     }
                     .fillMaxWidth()
                     .padding(8.dp)
