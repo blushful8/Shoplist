@@ -36,11 +36,9 @@ import com.help.app.shoplist.ui.CustomText
 fun GridRadioGroup(
     modifier: Modifier = Modifier,
     uniqueItems: Set<String> = setOf("A", "B", "C", "D", "E", "F", "G", "H", "I"),
+    selectedItem: String = "",
     onSelectItem: (itemName: String) -> Unit = {}
 ) {
-    var selectedOption by remember {
-        mutableStateOf(uniqueItems.first())
-    }
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Fixed(2),
@@ -56,7 +54,6 @@ fun GridRadioGroup(
                     .clickable(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }) {
-                        selectedOption = category
                         onSelectItem.invoke(category)
                     }
                     .fillMaxWidth()
@@ -64,14 +61,14 @@ fun GridRadioGroup(
                     .clip(RoundedCornerShape(8.dp))
                     .border(
                         2.dp,
-                        if (category == selectedOption) MaterialTheme.colorScheme.primary else Color.Gray,
+                        if (category == selectedItem) MaterialTheme.colorScheme.primary else Color.Gray,
                         RoundedCornerShape(8.dp)
                     ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
                     modifier = Modifier.padding(PaddingValues(top = 8.dp, bottom = 8.dp, start = 8.dp)),
-                    selected = (category == selectedOption),
+                    selected = (category == selectedItem),
                     onClick = null
                 )
                 Spacer(modifier = Modifier.width(4.dp))

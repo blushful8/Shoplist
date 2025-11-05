@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
@@ -23,13 +24,12 @@ import com.help.app.shoplist.ui.widget.GridRadioGroup
 
 @Composable
 fun ProductCategoryChooserDialog(
-    categories: List<String> = listOf("A", "B", "C"),
+    categories: List<String> = emptyList(),
     onDismissRequest: () -> Unit = {},
     onConfirmClick: (nameOfCategory: String) -> Unit = {},
     onDismissClick: () -> Unit = {}
 ) {
     var categoryName by rememberSaveable { mutableStateOf("") }
-
     AlertDialog(
         onDismissRequest = onDismissRequest,
         title = { CustomText(text = "Enter category name") },
@@ -50,15 +50,16 @@ fun ProductCategoryChooserDialog(
                     singleLine = true
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                HorizontalDivider(thickness = 1.dp, modifier = Modifier.height(10.dp))
+                HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(10.dp))
                 if (categories.isNotEmpty()) {
                     GridRadioGroup(
                         modifier = Modifier.fillMaxWidth(),
                         uniqueItems = categories.toSet(),
+                        selectedItem = categoryName,
                         onSelectItem = { newCategory ->
                             categoryName = newCategory
                         })
-                    HorizontalDivider(thickness = 1.dp, modifier = Modifier.height(10.dp))
+                    HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(10.dp))
                 }
             }
         }, confirmButton = {
@@ -73,5 +74,5 @@ fun ProductCategoryChooserDialog(
 @Preview
 @Composable
 private fun ProductCategoryChooserDialogPreview() {
-    ProductCategoryChooserDialog()
+    ProductCategoryChooserDialog(categories = listOf("A", "B", "C"))
 }

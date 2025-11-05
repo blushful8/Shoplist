@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -48,6 +47,7 @@ fun ShopScreen(
 
         if (inputProductNameDialogIsShowing) {
             InputProductNameDialog(
+                products = shopItemInfos.map { it.name },
                 onDismissRequest = { inputProductNameDialogIsShowing = false },
                 onConfirmClick = { productName ->
                     nameOfProduct = productName
