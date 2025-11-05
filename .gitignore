@@ -1,15 +1,52 @@
+# ======================
+# Android / Kotlin
+# ======================
+
+# IDE files
 *.iml
+.idea/
 .gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
 local.properties
+
+# Build / output folders
+/build/
+/captures/
+/outputs/
+/.externalNativeBuild/
+.cxx/
+
+# Gradle caches
+.gradle/
+
+# Kotlin/Java compiled files
+*.class
+*.kotlin_module
+
+# Mac / Windows system files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Key / secret files
+*.keystore
+*.jks
+.env
+
+# Android Studio specific
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries/
+.idea/caches/
+.idea/runConfigurations/
+
+# Others
+*.orig
+*.rej
+
+# Jetpack Compose / Android Studio snapshots
+captures/
