@@ -30,6 +30,7 @@ class ShopListActivity : ComponentActivity() {
                     ShopScreen(
                         modifier = Modifier.padding(innerPadding),
                         shopItemInfos = shopListViewModel.itemsNeedToShop.collectAsState().value,
+                        historyItems = shopListViewModel.historyItems.collectAsState().value,
                         onAddNewProduct = { shopItemInfo ->
                             shopListViewModel.addItem(shopItemInfo)
                         },

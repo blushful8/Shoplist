@@ -1,6 +1,8 @@
 package com.help.app.shoplist.data.di
 
+import com.help.app.shoplist.data.repository.HistoryRepositoryImpl
 import com.help.app.shoplist.data.repository.ShopRepositoryImpl
+import com.help.app.shoplist.domain.HistoryRepository
 import com.help.app.shoplist.domain.ShopRepository
 import dagger.Binds
 import dagger.Module
@@ -16,4 +18,8 @@ abstract class RepositoryModule {
     abstract fun bindShopRepository(
         shopRepositoryImpl: ShopRepositoryImpl
     ): ShopRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindShopHistoryRepository(historyRepositoryImpl: HistoryRepositoryImpl): HistoryRepository
 }

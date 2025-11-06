@@ -23,7 +23,7 @@ import com.help.app.shoplist.core.ui.widget.GridRadioGroup
 
 @Composable
 fun InputProductNameDialog(
-    products: List<String> = emptyList(),
+    historyProductNames: List<String> = emptyList(),
     onDismissRequest: () -> Unit = {},
     onConfirmClick: (nameOfProduct: String) -> Unit = {},
     onDismissClick: () -> Unit = {}
@@ -48,10 +48,10 @@ fun InputProductNameDialog(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(10.dp))
-                if (products.isNotEmpty()) {
+                if (historyProductNames.isNotEmpty()) {
                     GridRadioGroup(
                         modifier = Modifier.fillMaxWidth(),
-                        uniqueItems = products.toSet(),
+                        uniqueItems = historyProductNames.toSet(),
                         selectedItem = productName,
                         onSelectItem = { newProductName ->
                             productName = newProductName

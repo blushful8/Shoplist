@@ -20,7 +20,6 @@ class ShopRepositoryImpl @Inject constructor(
             }
         }
 
-
     override suspend fun addShopItem(item: ShopItemInfo) =
         shopItemDao.insert(mapper.mapDomainModelToDatabase(item))
 

@@ -24,7 +24,7 @@ import com.help.app.shoplist.core.ui.widget.GridRadioGroup
 
 @Composable
 fun ProductCategoryChooserDialog(
-    categories: List<String> = emptyList(),
+    historyCategoryNames: List<String> = emptyList(),
     onDismissRequest: () -> Unit = {},
     onConfirmClick: (nameOfCategory: String) -> Unit = {},
     onDismissClick: () -> Unit = {}
@@ -51,10 +51,10 @@ fun ProductCategoryChooserDialog(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(10.dp))
-                if (categories.isNotEmpty()) {
+                if (historyCategoryNames.isNotEmpty()) {
                     GridRadioGroup(
                         modifier = Modifier.fillMaxWidth(),
-                        uniqueItems = categories.toSet(),
+                        uniqueItems = historyCategoryNames.toSet(),
                         selectedItem = categoryName,
                         onSelectItem = { newCategory ->
                             categoryName = newCategory
@@ -74,5 +74,5 @@ fun ProductCategoryChooserDialog(
 @Preview
 @Composable
 private fun ProductCategoryChooserDialogPreview() {
-    ProductCategoryChooserDialog(categories = listOf("A", "B", "C"))
+    ProductCategoryChooserDialog(historyCategoryNames = listOf("A", "B", "C"))
 }

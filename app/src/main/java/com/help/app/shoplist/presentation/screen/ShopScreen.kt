@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.help.app.shoplist.R
+import com.help.app.shoplist.domain.model.HistoryItemInfo
 import com.help.app.shoplist.presentation.dialog.InputProductNameDialog
 import com.help.app.shoplist.presentation.dialog.ProductCategoryChooserDialog
 import com.help.app.shoplist.domain.model.ShopItemInfo
@@ -32,6 +32,7 @@ import com.help.app.shoplist.presentation.shop.ShopDeleteButton
 fun ShopScreen(
     modifier: Modifier = Modifier,
     shopItemInfos: List<ShopItemInfo> = emptyList(),
+    historyItems: List<HistoryItemInfo> = emptyList(),
     onAddNewProduct: (shopItemInfo: ShopItemInfo) -> Unit = {},
     onDeleteBoughtProducts: (shopItemInfos: List<ShopItemInfo>) -> Unit = {},
     onUpdateProductInfo: (shopItemInfo: ShopItemInfo) -> Unit = {}
@@ -50,7 +51,7 @@ fun ShopScreen(
 
         if (inputProductNameDialogIsShowing) {
             InputProductNameDialog(
-                products = shopItemInfos.map { it.productName },
+                historyProductNames = historyItems.map { it.productName },
                 onDismissRequest = { inputProductNameDialogIsShowing = false },
                 onConfirmClick = { productName ->
                     nameOfProduct = productName
@@ -62,7 +63,7 @@ fun ShopScreen(
 
         if (productCategoryChooserDialogIsShowing) {
             ProductCategoryChooserDialog(
-                categories = shopItemInfos.map { it.categoryName },
+                historyCategoryNames = historyItems.map { it.categoryName },
                 onDismissRequest = { productCategoryChooserDialogIsShowing = false },
                 onConfirmClick = { nameOfCategory ->
                     onAddNewProduct.invoke(

@@ -1,6 +1,5 @@
 package com.help.app.shoplist.data.mapper
 
-import android.util.Log
 import com.help.app.shoplist.data.database.ShopItem
 import com.help.app.shoplist.domain.model.ShopItemInfo
 import javax.inject.Inject
@@ -17,7 +16,6 @@ class ShopItemMapper @Inject constructor() {
     }
 
     fun mapDomainModelToDatabase(shopItemInfo: ShopItemInfo): ShopItem {
-        Log.d("TAG", "id ${shopItemInfo.id}")
         return ShopItem(
             id = shopItemInfo.id,
             productName = shopItemInfo.productName,
