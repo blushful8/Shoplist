@@ -32,4 +32,10 @@ class ShopListViewModel @Inject constructor(private val repository: ShopReposito
             repository.deleteShopItem(shopItemInfo)
         }
     }
+
+    fun updateItem(shopItemInfo: ShopItemInfo) {
+        viewModelScope.launch {
+            repository.updateShopItem(shopItemInfo)
+        }
+    }
 }

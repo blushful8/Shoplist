@@ -7,4 +7,5 @@ interface ShopRepository {
     fun getAllShopItems(): Flow<List<ShopItemInfo>>
     suspend fun addShopItem(item: ShopItemInfo)
     suspend fun deleteShopItem(item: ShopItemInfo)
+    suspend fun updateShopItem(item: ShopItemInfo)
 }

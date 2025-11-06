@@ -26,4 +26,8 @@ class ShopRepositoryImpl @Inject constructor(
 
     override suspend fun deleteShopItem(item: ShopItemInfo) =
         shopItemDao.delete(mapper.mapDomainModelToDatabase(item))
+
+    override suspend fun updateShopItem(item: ShopItemInfo) {
+        shopItemDao.update(mapper.mapDomainModelToDatabase(item))
+    }
 }

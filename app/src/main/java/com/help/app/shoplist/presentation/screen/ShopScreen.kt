@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,18 +24,22 @@ import com.help.app.shoplist.R
 import com.help.app.shoplist.presentation.dialog.InputProductNameDialog
 import com.help.app.shoplist.presentation.dialog.ProductCategoryChooserDialog
 import com.help.app.shoplist.domain.model.ShopItemInfo
+import com.help.app.shoplist.presentation.shop.CategoryCroup
 import com.help.app.shoplist.presentation.shop.ShopAddButton
-import com.help.app.shoplist.presentation.shop.ShopItem
+import com.help.app.shoplist.presentation.shop.ShopDeleteButton
 
 @Composable
 fun ShopScreen(
-    modifier: Modifier = Modifier, shopItemInfos: List<ShopItemInfo> = emptyList(),
-    onAddNewProduct: (shopItemInfo: ShopItemInfo) -> Unit = {}
+    modifier: Modifier = Modifier,
+    shopItemInfos: List<ShopItemInfo> = emptyList(),
+    onAddNewProduct: (shopItemInfo: ShopItemInfo) -> Unit = {},
+    onDeleteBoughtProducts: (shopItemInfos: List<ShopItemInfo>) -> Unit = {},
+    onUpdateProductInfo: (shopItemInfo: ShopItemInfo) -> Unit = {}
 ) {
     var inputProductNameDialogIsShowing by rememberSaveable { mutableStateOf(false) }
     var productCategoryChooserDialogIsShowing by rememberSaveable { mutableStateOf(false) }
     var nameOfProduct by rememberSaveable { mutableStateOf("") }
-
+    val groupedItems = shopItemInfos.groupBy { it.categoryName }
     Box(modifier) {
         Image(
             modifier = Modifier.fillMaxSize(),
@@ -84,13 +89,31 @@ fun ShopScreen(
                     .padding(vertical = 5.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(shopItemInfos) { shopItemInfo ->
-                    ShopItem(shopItemInfo = shopItemInfo)
+                groupedItems.forEach { (categoryName, shopItemsList) ->
+                    item(key = categoryName) {
+                        CategoryCroup(
+                            categoryName = categoryName.replaceFirstChar { it.uppercase() },
+                            shopItemList = shopItemsList,
+                            onBoughtChange = { isBought, shopItemInfo ->
+                                onUpdateProductInfo.invoke(shopItemInfo.copy(productIsBought = isBought))
+                            }
+                        )
+                    }
                 }
             }
-            ShopAddButton(
+            Row(
                 modifier = Modifier.align(Alignment.End),
-                onAddShopItem = { inputProductNameDialogIsShowing = true })
+                horizontalArrangement = Arrangement.spacedBy(15.dp)
+            ) {
+                ShopDeleteButton(onDeleteShopItem = {
+                    val boughtItems = shopItemInfos.filter { it.productIsBought }
+                    if (boughtItems.isNotEmpty())
+                        onDeleteBoughtProducts.invoke(boughtItems)
+                })
+                ShopAddButton(
+                    onAddShopItem = { inputProductNameDialogIsShowing = true })
+            }
+
         }
     }
 }

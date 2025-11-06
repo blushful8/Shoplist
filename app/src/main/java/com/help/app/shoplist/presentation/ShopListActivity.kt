@@ -32,6 +32,14 @@ class ShopListActivity : ComponentActivity() {
                         shopItemInfos = shopListViewModel.itemsNeedToShop.collectAsState().value,
                         onAddNewProduct = { shopItemInfo ->
                             shopListViewModel.addItem(shopItemInfo)
+                        },
+                        onDeleteBoughtProducts = { boughtShopItems ->
+                            boughtShopItems.forEach { shopItemInfo ->
+                                shopListViewModel.deleteItem(shopItemInfo)
+                            }
+                        },
+                        onUpdateProductInfo = { shopItemInfo ->
+                            shopListViewModel.updateItem(shopItemInfo)
                         }
                     )
                 }
