@@ -1,4 +1,4 @@
-package com.help.app.shoplist.ui.theme
+package com.help.app.shoplist.core.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

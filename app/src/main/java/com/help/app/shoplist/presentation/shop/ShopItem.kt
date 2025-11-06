@@ -1,4 +1,4 @@
-package com.help.app.shoplist.shop
+package com.help.app.shoplist.presentation.shop
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,9 +18,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.help.app.shoplist.data.model.ShopItemInfo
-import com.help.app.shoplist.ui.theme.BottomCardColor
-import com.help.app.shoplist.ui.theme.TopCardColor
+import com.help.app.shoplist.domain.model.ShopItemInfo
+import com.help.app.shoplist.core.ui.theme.BottomCardColor
+import com.help.app.shoplist.core.ui.theme.TopCardColor
 
 @Composable
 fun ShopItem(shopItemInfo: ShopItemInfo) {
@@ -46,7 +46,7 @@ fun ShopItem(shopItemInfo: ShopItemInfo) {
         ) {
 
             Text(
-                text = shopItemInfo.name,
+                text = shopItemInfo.productName,
                 color = Color.White,
                 fontSize = 18.sp,
                 modifier = Modifier.padding(start = 16.dp)

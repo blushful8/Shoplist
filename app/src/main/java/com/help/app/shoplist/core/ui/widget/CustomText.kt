@@ -1,4 +1,4 @@
-package com.help.app.shoplist.ui.widget
+package com.help.app.shoplist.core.ui.widget
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

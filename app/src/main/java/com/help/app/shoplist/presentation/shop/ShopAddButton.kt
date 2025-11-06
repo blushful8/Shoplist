@@ -1,20 +1,14 @@
-package com.help.app.shoplist.shop
+package com.help.app.shoplist.presentation.shop
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.help.app.shoplist.R
-import com.help.app.shoplist.ui.theme.AddShopButtonColor
+import com.help.app.shoplist.core.ui.theme.AddShopButtonColor
 
 @Composable
 fun ShopAddButton(

@@ -1,6 +1,5 @@
-package com.help.app.shoplist.ui.widget
+package com.help.app.shoplist.core.ui.widget
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -78,12 +77,9 @@ fun GridRadioGroup(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     onTextLayout = { textLayoutResult ->
-                        Log.d("TAG", "overFlow ${textLayoutResult.didOverflowWidth} visual ${textLayoutResult.hasVisualOverflow}")
                         if (textLayoutResult.hasVisualOverflow) {
                             val newSize = currentFontSize * 0.95f
                             if (newSize > 8.sp && newSize != currentFontSize) {
-                                Log.d("TAG", "size $currentFontSize")
-
                                 currentFontSize = newSize
                             }
                         }

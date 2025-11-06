@@ -1,4 +1,4 @@
-package com.help.app.shoplist
+package com.help.app.shoplist.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,10 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.help.app.shoplist.screen.ShopScreen
-import com.help.app.shoplist.ui.theme.ShoplistTheme
-import com.help.app.shoplist.vm.ShopListViewModel
+import com.help.app.shoplist.presentation.vm.ShopListViewModel
+import com.help.app.shoplist.presentation.screen.ShopScreen
+import com.help.app.shoplist.core.ui.theme.ShoplistTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ShopListActivity : ComponentActivity() {
     private val shopListViewModel: ShopListViewModel by viewModels()
 

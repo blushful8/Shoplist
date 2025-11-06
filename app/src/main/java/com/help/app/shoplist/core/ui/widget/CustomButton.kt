@@ -1,4 +1,4 @@
-package com.help.app.shoplist.ui.widget
+package com.help.app.shoplist.core.ui.widget
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.help.app.shoplist.ui.theme.ShoplistTheme
+import com.help.app.shoplist.core.ui.theme.ShoplistTheme
 
 @Composable
 fun CustomButton(

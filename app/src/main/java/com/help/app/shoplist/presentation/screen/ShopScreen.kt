@@ -1,4 +1,4 @@
-package com.help.app.shoplist.screen
+package com.help.app.shoplist.presentation.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -20,17 +20,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.help.app.shoplist.R
-import com.help.app.shoplist.dialog.InputProductNameDialog
-import com.help.app.shoplist.dialog.ProductCategoryChooserDialog
-import com.help.app.shoplist.data.model.ShopItemInfo
-import com.help.app.shoplist.shop.ShopAddButton
-import com.help.app.shoplist.shop.ShopItem
+import com.help.app.shoplist.presentation.dialog.InputProductNameDialog
+import com.help.app.shoplist.presentation.dialog.ProductCategoryChooserDialog
+import com.help.app.shoplist.domain.model.ShopItemInfo
+import com.help.app.shoplist.presentation.shop.ShopAddButton
+import com.help.app.shoplist.presentation.shop.ShopItem
 
 @Composable
 fun ShopScreen(
-    modifier: Modifier = Modifier, shopItemInfos: List<ShopItemInfo> = listOf(
-        ShopItemInfo()
-    ),
+    modifier: Modifier = Modifier, shopItemInfos: List<ShopItemInfo> = emptyList(),
     onAddNewProduct: (shopItemInfo: ShopItemInfo) -> Unit = {}
 ) {
     var inputProductNameDialogIsShowing by rememberSaveable { mutableStateOf(false) }
@@ -47,7 +45,7 @@ fun ShopScreen(
 
         if (inputProductNameDialogIsShowing) {
             InputProductNameDialog(
-                products = shopItemInfos.map { it.name },
+                products = shopItemInfos.map { it.productName },
                 onDismissRequest = { inputProductNameDialogIsShowing = false },
                 onConfirmClick = { productName ->
                     nameOfProduct = productName
@@ -59,14 +57,14 @@ fun ShopScreen(
 
         if (productCategoryChooserDialogIsShowing) {
             ProductCategoryChooserDialog(
-                categories = shopItemInfos.map { it.category },
+                categories = shopItemInfos.map { it.categoryName },
                 onDismissRequest = { productCategoryChooserDialogIsShowing = false },
                 onConfirmClick = { nameOfCategory ->
                     onAddNewProduct.invoke(
                         ShopItemInfo(
-                            id = shopItemInfos.lastIndex,
-                            name = nameOfProduct,
-                            category = nameOfCategory
+                            id = shopItemInfos.size + 1,
+                            productName = nameOfProduct,
+                            categoryName = nameOfCategory
                         )
                     )
                     productCategoryChooserDialogIsShowing = false

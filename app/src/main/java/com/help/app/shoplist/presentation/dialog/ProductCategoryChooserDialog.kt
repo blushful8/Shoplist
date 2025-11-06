@@ -1,4 +1,4 @@
-package com.help.app.shoplist.dialog
+package com.help.app.shoplist.presentation.dialog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.help.app.shoplist.ui.widget.CustomButton
-import com.help.app.shoplist.ui.widget.CustomText
-import com.help.app.shoplist.ui.widget.GridRadioGroup
+import com.help.app.shoplist.core.ui.widget.CustomButton
+import com.help.app.shoplist.core.ui.widget.CustomText
+import com.help.app.shoplist.core.ui.widget.GridRadioGroup
 
 @Composable
 fun ProductCategoryChooserDialog(
