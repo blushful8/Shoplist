@@ -46,6 +46,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.compose.material.icons.extended)
+
     // Hilt implementation
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
