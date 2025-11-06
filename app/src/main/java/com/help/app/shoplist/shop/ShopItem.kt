@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.help.app.shoplist.model.ShopItemInfo
+import com.help.app.shoplist.data.model.ShopItemInfo
 import com.help.app.shoplist.ui.theme.BottomCardColor
 import com.help.app.shoplist.ui.theme.TopCardColor
 

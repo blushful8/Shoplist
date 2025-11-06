@@ -17,8 +17,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.help.app.shoplist.ui.CustomButton
-import com.help.app.shoplist.ui.CustomText
+import com.help.app.shoplist.ui.widget.CustomButton
+import com.help.app.shoplist.ui.widget.CustomText
 import com.help.app.shoplist.ui.widget.GridRadioGroup
 
 @Composable

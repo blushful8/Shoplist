@@ -1,3 +1,3 @@
-package com.help.app.shoplist.model
+package com.help.app.shoplist.data.model
 
 data class ShopItemInfo(val id: Int = 0, val name: String = "Name", val category: String = "Category")

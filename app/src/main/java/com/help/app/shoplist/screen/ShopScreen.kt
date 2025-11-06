@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.help.app.shoplist.R
 import com.help.app.shoplist.dialog.InputProductNameDialog
 import com.help.app.shoplist.dialog.ProductCategoryChooserDialog
-import com.help.app.shoplist.model.ShopItemInfo
+import com.help.app.shoplist.data.model.ShopItemInfo
 import com.help.app.shoplist.shop.ShopAddButton
 import com.help.app.shoplist.shop.ShopItem
 

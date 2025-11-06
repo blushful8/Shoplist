@@ -1,4 +1,4 @@
-package com.help.app.shoplist.ui
+package com.help.app.shoplist.ui.widget
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button

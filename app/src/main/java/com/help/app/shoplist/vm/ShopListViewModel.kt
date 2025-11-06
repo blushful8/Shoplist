@@ -1,7 +1,7 @@
 package com.help.app.shoplist.vm
 
 import androidx.lifecycle.ViewModel
-import com.help.app.shoplist.model.ShopItemInfo
+import com.help.app.shoplist.data.model.ShopItemInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
