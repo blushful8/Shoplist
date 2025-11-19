@@ -21,8 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.help.app.shoplist.R
 import com.help.app.shoplist.domain.model.HistoryItemInfo
-import com.help.app.shoplist.presentation.dialog.InputProductNameDialog
-import com.help.app.shoplist.presentation.dialog.ProductCategoryChooserDialog
+import com.help.app.shoplist.presentation.dialog.InputPickerDialog
 import com.help.app.shoplist.domain.model.ShopItemInfo
 import com.help.app.shoplist.presentation.shop.CategoryCroup
 import com.help.app.shoplist.presentation.shop.ShopAddButton
@@ -50,8 +49,10 @@ fun ShopScreen(
         )
 
         if (inputProductNameDialogIsShowing) {
-            InputProductNameDialog(
-                historyProductNames = historyItems.map { it.productName },
+            InputPickerDialog(
+                title = "Enter product name",
+                hint = "Product name",
+                historyInputNames = historyItems.map { it.productName },
                 onDismissRequest = { inputProductNameDialogIsShowing = false },
                 onConfirmClick = { productName ->
                     nameOfProduct = productName
@@ -62,8 +63,10 @@ fun ShopScreen(
         }
 
         if (productCategoryChooserDialogIsShowing) {
-            ProductCategoryChooserDialog(
-                historyCategoryNames = historyItems.map { it.categoryName },
+            InputPickerDialog(
+                title = "Input category",
+                hint = "Vegetable",
+                historyInputNames = historyItems.map { it.categoryName },
                 onDismissRequest = { productCategoryChooserDialogIsShowing = false },
                 onConfirmClick = { nameOfCategory ->
                     onAddNewProduct.invoke(

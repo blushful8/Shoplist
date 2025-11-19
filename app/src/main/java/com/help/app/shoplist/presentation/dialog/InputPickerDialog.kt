@@ -22,39 +22,41 @@ import com.help.app.shoplist.core.ui.widget.CustomText
 import com.help.app.shoplist.core.ui.widget.GridRadioGroup
 
 @Composable
-fun InputProductNameDialog(
-    historyProductNames: List<String> = emptyList(),
+fun InputPickerDialog(
+    title: String  = "",
+    hint: String = "",
+    historyInputNames: List<String> = emptyList(),
     onDismissRequest: () -> Unit = {},
-    onConfirmClick: (nameOfProduct: String) -> Unit = {},
+    onConfirmClick: (nameOfItem: String) -> Unit = {},
     onDismissClick: () -> Unit = {}
 ) {
-    var productName by remember { mutableStateOf("") }
+    var inputName by remember { mutableStateOf("") }
 
     AlertDialog(
         onDismissRequest = onDismissRequest,
         title = {
             CustomText(
-                text = "Enter product name"
+                text = title
             )
         },
         text = {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 OutlinedTextField(
-                    value = productName,
-                    onValueChange = { productName = it },
-                    label = { CustomText(text = "Product name") },
+                    value = inputName,
+                    onValueChange = { inputName = it },
+                    label = { CustomText(text = hint) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(10.dp))
-                if (historyProductNames.isNotEmpty()) {
+                if (historyInputNames.isNotEmpty()) {
                     GridRadioGroup(
                         modifier = Modifier.fillMaxWidth(),
-                        uniqueItems = historyProductNames.toSet(),
-                        selectedItem = productName,
-                        onSelectItem = { newProductName ->
-                            productName = newProductName
+                        uniqueItems = historyInputNames.toSet(),
+                        selectedItem = inputName,
+                        onSelectItem = { newName ->
+                            inputName = newName
                         })
                     HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(10.dp))
                 }
@@ -64,8 +66,8 @@ fun InputProductNameDialog(
             CustomButton(
                 text = "Save",
                 onClick = {
-                    if (productName.isNotBlank()) {
-                        onConfirmClick.invoke(productName)
+                    if (inputName.isNotBlank()) {
+                        onConfirmClick.invoke(inputName)
                     }
                 }
             )
