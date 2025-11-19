@@ -68,7 +68,7 @@ fun ShopScreen(
                 onConfirmClick = { nameOfCategory ->
                     onAddNewProduct.invoke(
                         ShopItemInfo(
-                            id = shopItemInfos.size + 1,
+                            id = 0,
                             productName = nameOfProduct,
                             categoryName = nameOfCategory
                         )
