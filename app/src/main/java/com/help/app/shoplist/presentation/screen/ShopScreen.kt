@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.help.app.shoplist.R
 import com.help.app.shoplist.domain.model.HistoryItemInfo
+import com.help.app.shoplist.domain.model.NewShopItemDetails
 import com.help.app.shoplist.presentation.dialog.InputPickerDialog
 import com.help.app.shoplist.domain.model.ShopItemInfo
 import com.help.app.shoplist.presentation.shop.CategoryCroup
@@ -32,13 +33,15 @@ fun ShopScreen(
     modifier: Modifier = Modifier,
     shopItemInfos: List<ShopItemInfo> = emptyList(),
     historyItems: List<HistoryItemInfo> = emptyList(),
-    onAddNewProduct: (shopItemInfo: ShopItemInfo) -> Unit = {},
+    onAddNewProduct: () -> Unit = {},
     onDeleteBoughtProducts: (shopItemInfos: List<ShopItemInfo>) -> Unit = {},
-    onUpdateProductInfo: (shopItemInfo: ShopItemInfo) -> Unit = {}
+    onUpdateProductInfo: (shopItemInfo: ShopItemInfo) -> Unit = {},
+    onInputProductDetails: (NewShopItemDetails) -> Unit = {},
+    onInputCategoryDetails: (NewShopItemDetails) -> Unit = {}
 ) {
     var inputProductNameDialogIsShowing by rememberSaveable { mutableStateOf(false) }
     var productCategoryChooserDialogIsShowing by rememberSaveable { mutableStateOf(false) }
-    var nameOfProduct by rememberSaveable { mutableStateOf("") }
+
     val groupedItems = shopItemInfos.groupBy { it.categoryName }
     Box(modifier) {
         Image(
@@ -52,10 +55,11 @@ fun ShopScreen(
             InputPickerDialog(
                 title = "Enter product name",
                 hint = "Product name",
-                historyInputNames = historyItems.map { it.productName },
+                withAdditionInputField = true,
+                savedInputNames = historyItems.map { it.productName },
                 onDismissRequest = { inputProductNameDialogIsShowing = false },
-                onConfirmClick = { productName ->
-                    nameOfProduct = productName
+                onConfirmClick = { details ->
+                    onInputProductDetails.invoke(details)
                     productCategoryChooserDialogIsShowing = true
                     inputProductNameDialogIsShowing = false
                 },
@@ -66,16 +70,11 @@ fun ShopScreen(
             InputPickerDialog(
                 title = "Input category",
                 hint = "Vegetable",
-                historyInputNames = historyItems.map { it.categoryName },
+                savedInputNames = historyItems.map { it.categoryName },
                 onDismissRequest = { productCategoryChooserDialogIsShowing = false },
-                onConfirmClick = { nameOfCategory ->
-                    onAddNewProduct.invoke(
-                        ShopItemInfo(
-                            id = 0,
-                            productName = nameOfProduct,
-                            categoryName = nameOfCategory
-                        )
-                    )
+                onConfirmClick = { details ->
+                    onInputCategoryDetails.invoke(details)
+                    onAddNewProduct.invoke()
                     productCategoryChooserDialogIsShowing = false
                 },
                 onDismissClick = { productCategoryChooserDialogIsShowing = false })

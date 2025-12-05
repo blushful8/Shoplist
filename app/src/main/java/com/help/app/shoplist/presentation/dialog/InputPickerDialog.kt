@@ -16,21 +16,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.help.app.shoplist.core.ui.theme.ShoplistTheme
 import com.help.app.shoplist.core.ui.widget.CustomButton
 import com.help.app.shoplist.core.ui.widget.CustomText
 import com.help.app.shoplist.core.ui.widget.GridRadioGroup
+import com.help.app.shoplist.domain.model.NewShopItemDetails
 
 @Composable
 fun InputPickerDialog(
-    title: String  = "",
+    title: String = "",
     hint: String = "",
-    historyInputNames: List<String> = emptyList(),
+    savedInputNames: List<String> = emptyList(),
+    withAdditionInputField: Boolean = false,
     onDismissRequest: () -> Unit = {},
-    onConfirmClick: (nameOfItem: String) -> Unit = {},
+    onConfirmClick: (details: NewShopItemDetails) -> Unit = {},
     onDismissClick: () -> Unit = {}
 ) {
     var inputName by remember { mutableStateOf("") }
+    var inputItemDescription by remember { mutableStateOf("") }
 
     AlertDialog(
         onDismissRequest = onDismissRequest,
@@ -46,14 +51,24 @@ fun InputPickerDialog(
                     onValueChange = { inputName = it },
                     label = { CustomText(text = hint) },
                     singleLine = true,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = inputName.isEmpty()
                 )
+                if (withAdditionInputField) {
+                    OutlinedTextField(
+                        value = inputItemDescription,
+                        onValueChange = { inputItemDescription = it },
+                        label = { CustomText(text = "Additionally...") },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
                 Spacer(modifier = Modifier.height(10.dp))
                 HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(10.dp))
-                if (historyInputNames.isNotEmpty()) {
+                if (savedInputNames.isNotEmpty()) {
                     GridRadioGroup(
                         modifier = Modifier.fillMaxWidth(),
-                        uniqueItems = historyInputNames.toSet(),
+                        uniqueItems = savedInputNames.toSet(),
                         selectedItem = inputName,
                         onSelectItem = { newName ->
                             inputName = newName
@@ -67,7 +82,12 @@ fun InputPickerDialog(
                 text = "Save",
                 onClick = {
                     if (inputName.isNotBlank()) {
-                        onConfirmClick.invoke(inputName)
+                        onConfirmClick.invoke(
+                            NewShopItemDetails(
+                                itemName = inputName,
+                                itemDescription = inputItemDescription
+                            )
+                        )
                     }
                 }
             )
@@ -80,4 +100,17 @@ fun InputPickerDialog(
         },
         shape = RoundedCornerShape(16.dp)
     )
+}
+
+@Preview
+@Composable
+private fun InputPickerDialogPreview() {
+    ShoplistTheme {
+        InputPickerDialog(
+            title = "Title",
+            hint = "Hint",
+            savedInputNames = listOf("Example", "Example"),
+            withAdditionInputField = true
+        )
+    }
 }

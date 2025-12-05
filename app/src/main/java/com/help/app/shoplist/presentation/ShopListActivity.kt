@@ -31,8 +31,8 @@ class ShopListActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding),
                         shopItemInfos = shopListViewModel.itemsNeedToShop.collectAsState().value,
                         historyItems = shopListViewModel.historyItems.collectAsState().value,
-                        onAddNewProduct = { shopItemInfo ->
-                            shopListViewModel.addItem(shopItemInfo)
+                        onAddNewProduct = {
+                            shopListViewModel.addItem()
                         },
                         onDeleteBoughtProducts = { boughtShopItems ->
                             boughtShopItems.forEach { shopItemInfo ->
@@ -41,6 +41,11 @@ class ShopListActivity : ComponentActivity() {
                         },
                         onUpdateProductInfo = { shopItemInfo ->
                             shopListViewModel.updateItem(shopItemInfo)
+                        }, onInputProductDetails = { details ->
+                            shopListViewModel.inputProductDetails(details)
+                        },
+                        onInputCategoryDetails = { details ->
+                            shopListViewModel.inputCategoryDetails(details)
                         }
                     )
                 }
