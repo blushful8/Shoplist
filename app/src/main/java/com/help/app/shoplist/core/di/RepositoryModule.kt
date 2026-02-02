@@ -1,4 +1,4 @@
-package com.help.app.shoplist.data.di
+package com.help.app.shoplist.core.di
 
 import com.help.app.shoplist.data.repository.HistoryRepositoryImpl
 import com.help.app.shoplist.data.repository.ShopRepositoryImpl

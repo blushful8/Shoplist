@@ -1,4 +1,4 @@
-package com.help.app.shoplist.data.di
+package com.help.app.shoplist.core.di
 
 import android.content.Context
 import androidx.room.Room
@@ -15,8 +15,8 @@ import dagger.hilt.components.SingletonComponent
 import jakarta.inject.Singleton
 
 val MIGRATION_1_2 = object : Migration(1, 2) {
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
             """
             CREATE TABLE IF NOT EXISTS product_history_item (
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -26,7 +26,7 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
             )
             """
         )
-        database.execSQL(
+        db.execSQL(
             "CREATE UNIQUE INDEX IF NOT EXISTS `index_product_history_item_product_name_category_name` ON `product_history_item` (`product_name`, `category_name`)"
         )
     }
