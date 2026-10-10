@@ -11,12 +11,12 @@ plugins {
 
 android {
     namespace = "com.help.app.shoplist"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.sholawat_akustik_edisi_ramadhan_terbaru_2021.shoplist"
+        applicationId = "com.help.app.shoplist"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -26,19 +26,19 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
 
     kotlin {
-        compilerOptions.jvmTarget.set(JvmTarget.JVM_1_8)
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
         compose = true
