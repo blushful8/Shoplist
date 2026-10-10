@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -32,9 +33,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,7 +59,9 @@ fun GridRadioGroup(
                 modifier = Modifier
                     .align(Alignment.End)
                     .padding(horizontal = 10.dp)
-                    .rotate(arrowAngle)
+                    .graphicsLayer {
+                        rotationZ = arrowAngle
+                    }
                     .clickable {
                         isExpanded = !isExpanded
                     },
@@ -67,12 +70,15 @@ fun GridRadioGroup(
                 colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onSurface)
             )
         LazyVerticalGrid(
+            modifier = Modifier.heightIn(max = 300.dp),
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(10.dp),
             horizontalArrangement = Arrangement.spacedBy(5.dp),
             verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            itemsIndexed(uniqueItems.toList()) { index, category ->
+            itemsIndexed(
+                items = uniqueItems.toList(),
+                key = { _, category -> category }) { index, category ->
                 var currentFontSize by remember(category) { mutableStateOf(16.sp) }
 
                 val isCanShow = if (isExpanded) true else index < 2
@@ -110,6 +116,7 @@ fun GridRadioGroup(
                             onClick = null
                         )
                         Spacer(modifier = Modifier.width(4.dp))
+
                         CustomText(
                             modifier = Modifier
                                 .weight(1F)
@@ -118,14 +125,7 @@ fun GridRadioGroup(
                             text = category,
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1,
-                            onTextLayout = { textLayoutResult ->
-                                if (textLayoutResult.hasVisualOverflow) {
-                                    val newSize = currentFontSize * 0.95f
-                                    if (newSize > 8.sp && newSize != currentFontSize) {
-                                        currentFontSize = newSize
-                                    }
-                                }
-                            })
+                        )
                     }
                 }
             }

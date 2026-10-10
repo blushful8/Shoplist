@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.ui.tooling.preview.Preview
 
 
 @Composable
@@ -39,8 +40,8 @@ fun RoundCheckbox(
             .clip(CircleShape)
             .background(if (checked) checkedColor else backgroundColor)
             .border(
-                width = 2.dp,
-                color = if (checked) checkedColor else borderColor.copy(alpha = 0.6f),
+                width = if (checked) 1.dp else 0.dp,
+                color = if (checked) Color.White else borderColor.copy(alpha = 0.6f),
                 shape = CircleShape
             )
             .clickable(
@@ -59,4 +60,13 @@ fun RoundCheckbox(
             )
         }
     }
+}
+
+@Preview
+@Composable
+private fun RoundCheckBoxPreview() {
+    RoundCheckbox(
+        checked = true,
+        onCheckedChange = {}
+    )
 }

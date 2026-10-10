@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,16 +23,17 @@ import com.help.app.shoplist.domain.model.ShopItemInfo
 @Composable
 fun CategoryCroup(
     modifier: Modifier = Modifier,
-    categoryName: String = "",
     shopItemList: List<ShopItemInfo> = emptyList(),
     onBoughtChange: (Boolean, ShopItemInfo) -> Unit = { _, _ -> }
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(0.dp)
     ) {
+        val name = remember {
+            shopItemList.first().categoryName.replaceFirstChar { it.uppercase() }
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -49,7 +51,7 @@ fun CategoryCroup(
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                CategoryHeader(categoryName = categoryName)
+                CategoryHeader(categoryName = name)
 
                 shopItemList.forEach { shopItemInfo ->
                     ShopItem(
@@ -59,6 +61,20 @@ fun CategoryCroup(
             }
         }
     }
+}
+
+@Preview
+@Composable
+private fun CategoryGroupPreviewWithSomeItem() {
+    CategoryCroup(
+        shopItemList = listOf(
+            ShopItemInfo(
+                productName = "some name",
+                categoryName = "Some category",
+                productIsBought = true
+            )
+        )
+    )
 }
 
 

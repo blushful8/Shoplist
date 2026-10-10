@@ -1,10 +1,10 @@
 package com.help.app.shoplist.core.ui.widget
 
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
@@ -16,7 +16,6 @@ fun CustomText(
     text: String = "",
     fontSize: TextUnit = 22.sp,
     textAlign: TextAlign? = null,
-    onTextLayout: ((TextLayoutResult) -> Unit)? = null,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip
 ) {
@@ -34,6 +33,10 @@ fun CustomText(
         style = style,
         maxLines = maxLines,
         overflow = overflow,
-        onTextLayout = onTextLayout
+        autoSize = TextAutoSize.StepBased(
+            minFontSize = 12.sp,
+            maxFontSize = 16.sp,
+            stepSize = 0.5.sp
+        )
     )
 }

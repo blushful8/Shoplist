@@ -26,9 +26,12 @@ class ShopListActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ShoplistTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
                     ShopScreen(
-                        modifier = Modifier.padding(innerPadding),
+                        modifier = Modifier
+                            .padding(innerPadding),
                         shopItemInfos = shopListViewModel.itemsNeedToShop.collectAsState().value,
                         historyItems = shopListViewModel.historyItems.collectAsState().value,
                         onAddNewProduct = {
@@ -55,7 +58,9 @@ class ShopListActivity : ComponentActivity() {
 }
 
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true
+)
 @Composable
 private fun Preview() {
     ShoplistTheme {
